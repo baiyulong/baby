@@ -21,7 +21,9 @@ class Module implements ModuleDefinitionInterface
 
         $loader->registerNamespaces(array(
             'Baby\Home\Controllers' => __DIR__ . '/controllers/',
-            'Baby\Home\Models' => __DIR__ . '/models/',
+            'Baby\Home\Models'      => __DIR__ . '/models/',
+            'Baby\Home\Library'     => __DIR__ . '/library',
+            'Baby\Home\Plugins'     => __DIR__ . '/plugins',
         ));
 
         $loader->register();
@@ -46,6 +48,9 @@ class Module implements ModuleDefinitionInterface
         $di['view'] = function () {
             $view = new View();
             $view->setViewsDir(__DIR__ . '/views/');
+            $view->registerEngines(array(
+                '.volt' => 'Phalcon\Mvc\View\Engine\Volt'
+            ));
 
             return $view;
         };
@@ -58,7 +63,7 @@ class Module implements ModuleDefinitionInterface
                 "host" => $config->database->host,
                 "username" => $config->database->username,
                 "password" => $config->database->password,
-                "dbname" => $config->database->name
+                "dbname" => $config->database->dbname
             ));
         };
 

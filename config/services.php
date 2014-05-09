@@ -8,6 +8,7 @@ use Phalcon\Mvc\Router;
 use Phalcon\Mvc\Url as UrlResolver;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Flash\Direct;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -32,7 +33,7 @@ $di['router'] = function () {
  */
 $di['url'] = function () {
     $url = new UrlResolver();
-    $url->setBaseUri('/baby/');
+    $url->setBaseUri('/');
 
     return $url;
 };
@@ -45,4 +46,12 @@ $di['session'] = function () {
     $session->start();
 
     return $session;
+};
+
+/**
+ * Set up the flash Service
+ */
+$di['flash'] = function () {
+    $flash = new Direct();
+    return $flash;
 };
